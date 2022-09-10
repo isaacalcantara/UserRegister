@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import './style.css';
 
 function FormSignup(){
@@ -6,6 +7,14 @@ function FormSignup(){
     const[name, setName] = useState("");
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
+
+    useEffect(()=>{
+        axios.get("http://localhost:8080/api/user/all")
+        .then(response =>{
+          console.log(response.data)
+        })
+
+    }, []);
 
     return(
         <div className="wrap-register">
