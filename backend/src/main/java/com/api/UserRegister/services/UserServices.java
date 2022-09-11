@@ -29,7 +29,7 @@ public class UserServices {
 			throw new Error("User already exists!");
 		}
 		
-		newUser.setPassword(passwordEncoder().encode(newUser.getPassword()));
+		//newUser.setPassword(passwordEncoder().encode(newUser.getPassword()));
 		return userRepository.save(newUser);
 		
 	}
@@ -45,8 +45,15 @@ public class UserServices {
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
-	public User authUser(String email, String password) {
-		return userRepository.findByEmailAndPassword(email, password).orElse(null);
+	public String authUser(String email, String password) {
+		//password = passwordEncoder().encode(password);
+		
+		User user = userRepository.findByEmailAndPassword(email, password).orElse(null);
+		if(user != null) {
+			return "encontrou";
+		}else {
+			return "não encontrou";
+		}
 	}
 	
 }

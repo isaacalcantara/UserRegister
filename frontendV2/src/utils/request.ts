@@ -1,0 +1,1 @@
+export const BASE_URL = import.meta.env.VITE_BACKENDURL ?? "http://localhost:8080"

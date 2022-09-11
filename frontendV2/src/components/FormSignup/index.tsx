@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { BASE_URL } from '../../utils/request';
 import './style.css';
+
+const acessToken = 'f8e668c7-bace-4081-92ee-e7841bbc1d0d';
 
 function FormSignup(){
 
@@ -8,13 +11,27 @@ function FormSignup(){
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
 
-    useEffect(()=>{
-        axios.get("http://localhost:8080/api/user/all")
+   
+
+    function onChange(){
+      useEffect(()=>{
+        axios.post(`${BASE_URL}/api/user/save`, {
+          name: name,
+          email: email,
+          password: password ,
+          "tipo": "normal_user",
+          "status": true
+        }, {
+          headers: {
+            'Authorization': `Basic ${acessToken}` 
+          }
+        })
         .then(response =>{
           console.log(response.data)
         })
 
     }, []);
+    }
 
     return(
         <div className="wrap-register">

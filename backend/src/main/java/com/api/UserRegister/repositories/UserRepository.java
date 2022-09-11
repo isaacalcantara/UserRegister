@@ -2,8 +2,6 @@ package com.api.UserRegister.repositories;
 
 import java.util.Optional;
 
-import javax.swing.text.html.Option;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.api.UserRegister.entities.User;

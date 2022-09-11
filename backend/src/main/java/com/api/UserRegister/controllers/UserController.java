@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.UserRegister.entities.User;
+import com.api.UserRegister.payloads.requests.LoginRequest;
 import com.api.UserRegister.services.UserServices;
 
 @RestController
@@ -34,13 +35,15 @@ public class UserController {
 		return userServices.findById(id);
 	}
 	 
+	@CrossOrigin(origins = "*")
 	@PostMapping("/user/save")
 	public User newUser(@RequestBody User user) {
 		return userServices.registerUser(user);
 	}
 	
+	@CrossOrigin(origins = "*")
 	@PostMapping("/user/login")
-	public User authLogin(@RequestBody User user) {
+	public String authLogin(@RequestBody LoginRequest user) {
 		return userServices.authUser(user.getEmail(), user.getPassword());
 	}
 	
