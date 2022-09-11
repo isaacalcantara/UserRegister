@@ -1,36 +1,50 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import {useRef, useEffect, useState, useContext } from 'react';
+import AuthContext from '../../context/AuthProvider';
 import { BASE_URL } from '../../utils/request';
 import './style.css';
 
 function FormSignin(){
 
-  const[email, setEmail] = useState("");
-  const[password, setPassword] = useState("");
-  const[error, setError] = useState("");
 
-  const handLogin = () => {
-    useEffect(()=>{
-      axios.post(`${BASE_URL}/api/user/save`, {
-        name: name,
-        email: email,
-        password: password ,
-        "tipo": "normal_user",
-        "status": true
-      }, {
-        headers: {
-          'Authorization': `Basic ${null}` 
-        }
-      })
-      .then(response =>{
-        console.log(response.data)
-      })
 
-  }, []);
-  }
+    const[email, setEmail] = useState("");
+    const[password, setPassword] = useState("");
+    const[error, setError] = useState("");
+    const [sucess, setSucess] = useState(false);
+
+
+    useEffect(() => {
+        setError('');
+    }, [email, password])
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try{
+        const response = await axios.post(`${BASE_URL}/api/user/login`, {
+            email: email,
+            password: password ,
+          }, {
+            headers: {
+              'Authorization': `Basic ${null}` 
+            }
+          })
+          .then(response =>{
+            console.log(response.data)
+          })
+
+    }catch(error){
+        if(!error?.response){
+            setError('No server response');
+        } else if (error.response?.status === 400){
+            setError('Missing name or password')
+        } else if (error.response?.status === 401){
+            setError('Não autorizado');
+        }else{
+            setError('login falhou');
+        }
+    }
   }
      
 

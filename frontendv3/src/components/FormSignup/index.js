@@ -11,28 +11,6 @@ function FormSignup(){
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
     const[error, setError] = useState("");
-   
-      
-    
-    const handLogin = () => {
-      useEffect(()=>{
-        axios.post(`${BASE_URL}/api/user/save`, {
-          name: name,
-          email: email,
-          password: password ,
-          "tipo": "normal_user",
-          "status": true
-        }, {
-          headers: {
-            'Authorization': `Basic ${acessToken}` 
-          }
-        })
-        .then(response =>{
-          console.log(response.data)
-        })
-
-    }, []);
-    }
 
     const handleSubmit = async (e) => {
       e.preventDefault();
