@@ -12,28 +12,30 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "TB_User")
 public class User implements Serializable {
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-    private String name;
-    private String email;
-    private String password;
-    private String tipo;
-    private Boolean status;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
+	private String name;
+	private String email;
+	private String password;
+	private String rec_code;
 
-    public User(){
+	private String tipo;
+	private Boolean status;
 
-    }
+	public User() {
 
-    public User(String name, String email, String password,String tipo, Boolean status) {
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.tipo = tipo;
-        this.status = status;
-    }
+	}
+
+	public User(String name, String email, String password, String tipo, Boolean status) {
+		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.tipo = tipo;
+		this.status = status;
+	}
 
 	public Integer getId() {
 		return id;
@@ -41,6 +43,14 @@ public class User implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getRec_code() {
+		return rec_code;
+	}
+
+	public void setRec_code(String rec_code) {
+		this.rec_code = rec_code;
 	}
 
 	public String getName() {
@@ -57,10 +67,6 @@ public class User implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
 	}
 
 	public void setPassword(String password) {
@@ -106,7 +112,5 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", tipo=" + tipo + ", status=" + status + "]";
 	}
-    
-    
 
 }

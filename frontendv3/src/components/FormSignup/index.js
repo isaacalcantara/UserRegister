@@ -12,10 +12,47 @@ function FormSignup(){
     const[password, setPassword] = useState("");
     const[error, setError] = useState("");
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-       
+    useEffect(() => {
+        setError('');
+    }, [email, password])
+
+
+  const handleSubmit = async (e) => {
+
+    if(!email | !password | !name){
+        alert("Preencha todos os campos!");
+        return
     }
+
+    e.preventDefault();
+    try{
+        const response = await axios.post(`${BASE_URL}/api/user/save`, {
+            "name": name,
+            "email": email,
+            "password": password,
+            "tipo": "normal-user",
+            "status": true
+          }, {
+            headers: {
+              'Authorization': `Basic ${null}` 
+            }
+          })
+          .then(response =>{
+            alert("Cadastrado com sucesso!");
+          })
+
+    }catch(error){
+        if(!error?.response){
+            setError('No server response');
+        } else if (error.response?.status === 400){
+            setError('Missing name or password')
+        } else if (error.response?.status === 401){
+            setError('Não autorizado');
+        }else{
+            setError('login falhou');
+        }
+    }
+  }
 
     return(
         <div className="wrap-register">

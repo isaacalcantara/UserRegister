@@ -47,4 +47,11 @@ public class UserController {
 		return userServices.authUser(user.getEmail(), user.getPassword());
 	}
 	
+	@PostMapping("/user/login/password/recover")
+	public Boolean recoverPassword(@RequestBody String email) {
+		
+		
+		return null;
+	}
+	
 }

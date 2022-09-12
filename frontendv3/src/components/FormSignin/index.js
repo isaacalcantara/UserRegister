@@ -1,6 +1,7 @@
 import axios from 'axios';
-import {useRef, useEffect, useState, useContext } from 'react';
+import {useEffect, useState} from 'react';
 import AuthContext from '../../context/AuthProvider';
+import {Link, Navigate, useNavigate} from 'react-router-dom';
 import { BASE_URL } from '../../utils/request';
 import './style.css';
 
@@ -20,6 +21,12 @@ function FormSignin(){
 
 
   const handleSubmit = async (e) => {
+
+    if(!email | !password){
+        alert("Preencha todos os campos!");
+        return
+    }
+
     e.preventDefault();
     try{
         const response = await axios.post(`${BASE_URL}/api/user/login`, {
@@ -77,7 +84,7 @@ function FormSignin(){
                 <span className="txt1"> Don't have an account? </span>
                 <a className="txt2" href="/register">Create account.</a> <br />
                 <span className="txt1"> forget password? </span>
-                <a className="txt2" href="#">Remember now.</a>
+                <a className="txt2" href="/fgtpassword">Remember now.</a>
                 
                 </div> 
               </div>
