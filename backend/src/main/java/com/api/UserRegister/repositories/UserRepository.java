@@ -19,7 +19,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Modifying
 	@Query("UPDATE User\r\n"
 			+ "	SET rec_code= :code\r\n"
+			+ "	WHERE email = :email")
+	void updateRecCode(String email, String code); 
+
+	@Modifying
+	@Query("UPDATE User\r\n"
+			+ "	SET rec_code=null, password= :newPassword\r\n"
 			+ "	WHERE id = :id")
-	void updateRecCode(Integer id, String code); 
+	void updateUser(String id, String newPassword);
 	
 }

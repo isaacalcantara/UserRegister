@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import javax.mail.MessagingException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,10 @@ public class UserServices {
 	
 	
 	@Autowired 
-	UserRepository userRepository;
+	private UserRepository userRepository;
+	
+	@Autowired
+	private EmailService emailService;
 	
 /*	private BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -42,7 +47,7 @@ public class UserServices {
 		return userRepository.findById(id);
 	}
 	
-	public Boolean findByEmailAndGenerateRecuperationCode(String email) {
+	public Boolean findByEmailAndGenerateRecuperationCode(String email) throws MessagingException {
 		User user = userRepository.findByEmail(email);
 		if(user != null) {
 			
@@ -57,23 +62,32 @@ public class UserServices {
 			
 			String recuperationCode = n1+n2+n3+n4+n5+n6;
 			
-			userRepository.updateRecCode(user.getId(), recuperationCode);
+			user.setRec_code(recuperationCode);
 			
+			userRepository.save(user);
+			
+			emailService.enviarEmail(email, recuperationCode);
+	
 			return true;
 		}else {
 			return false;
 		}
 	}
 	
-	public String authUser(String email, String password) {
+	public Boolean authUser(String email, String password) {
 		//password = passwordEncoder().encode(password);
 		
 		User user = userRepository.findByEmailAndPassword(email, password).orElse(null);
 		if(user != null) {
-			return "encontrou";
+			return true;
 		}else {
-			return "não encontrou";
+			return false;
 		}
 	}
+	
+	/*public Boolean authUpdate(ChangePasswordRequest request) {
+		User user = userRepository.findByEmailAndRec_code(request.getEmail(), request.getCode());
+		return null;
+	} */
 	
 }
