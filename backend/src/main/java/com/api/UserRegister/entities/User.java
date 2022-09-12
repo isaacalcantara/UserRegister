@@ -21,6 +21,7 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	private String rec_code;
+	private String Phone;
 
 	private String tipo;
 	private Boolean status;
@@ -29,13 +30,21 @@ public class User implements Serializable {
 
 	}
 
-	public User(String name, String email, String password, String tipo, Boolean status) {
+	
+
+	public User(Integer id, String name, String email, String password, String rec_code, String phone, String tipo,
+			Boolean status) {
+		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.rec_code = rec_code;
+		Phone = phone;
 		this.tipo = tipo;
 		this.status = status;
 	}
+
+
 
 	public Integer getId() {
 		return id;
@@ -43,6 +52,14 @@ public class User implements Serializable {
 
 	public void setId(Integer id) {
 		this.id = id;
+	}
+
+	public String getPhone() {
+		return Phone;
+	}
+
+	public void setPhone(String phone) {
+		Phone = phone;
 	}
 
 	public String getRec_code() {
