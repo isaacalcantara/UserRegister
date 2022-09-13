@@ -6,6 +6,8 @@ import ForgetPassword from "./components/ForgetPassword";
 import AuthContext, { AuthProvider } from "./context/AuthProvider";
 import { useContext } from "react";
 import useAuth from "./hooks/useAuth";
+import { ToastContainer } from "react-toastify";
+
 
 
 const Private = ({Item}) => {
@@ -27,6 +29,7 @@ function App() {
               <Route exat path="/home" element={<Private Item ={Home} />} />
             </Routes>
           </Router>
+  
         </div>
     </div>
   )

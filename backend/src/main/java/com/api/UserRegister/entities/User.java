@@ -10,7 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TB_User")
+@Table(name = "\"TB_User\"")
 public class User implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -112,10 +112,15 @@ public class User implements Serializable {
 		this.status = status;
 	}
 
+	
+	
+	
 	@Override
 	public int hashCode() {
-		return Objects.hash(email, id, name, password, status, tipo);
+		return Objects.hash(Phone, email, id, name, password, rec_code, status, tipo, token);
 	}
+
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -126,10 +131,13 @@ public class User implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		return Objects.equals(email, other.email) && Objects.equals(id, other.id) && Objects.equals(name, other.name)
-				&& Objects.equals(password, other.password) && Objects.equals(status, other.status)
-				&& Objects.equals(tipo, other.tipo);
+		return Objects.equals(Phone, other.Phone) && Objects.equals(email, other.email) && Objects.equals(id, other.id)
+				&& Objects.equals(name, other.name) && Objects.equals(password, other.password)
+				&& Objects.equals(rec_code, other.rec_code) && Objects.equals(status, other.status)
+				&& Objects.equals(tipo, other.tipo) && Objects.equals(token, other.token);
 	}
+
+
 
 	@Override
 	public String toString() {

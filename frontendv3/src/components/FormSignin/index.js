@@ -25,7 +25,7 @@ function FormSignin(){
   const handleSubmit = async (e) => {
 
     if(!email | !password){
-        setError("Preencha todos os campos!");
+        alert("Preencha todos os campos!");
         return
     }
 
@@ -91,7 +91,7 @@ function FormSignin(){
             <form className="login-form" onSubmit={handleSubmit}>
               <span className="login-form-title">Bem Vindo!</span>
               <span className="login-form-tile">
-              <p ref = {errRef} className={error ? "errMsg" : "offscreen"} aria-live="assertive" >{error}</p>
+              <span className="login-form-title"></span>
               </span>
               <div className="wrap-input">
                 <input className={email !== "" ? 'has-val input' : 'input'} type="email" 

@@ -9,7 +9,6 @@ export const AuthProvider = ({children}) => {
     const [auth, setAuth] = useState({});
 
     const userEmail = localStorage.getItem("email")
-    const userToken = localStorage.getItem("user_token")
 
     if(userEmail){
         const response = axios.post(`${BASE_URL}/api/user/login/authtoken`, {

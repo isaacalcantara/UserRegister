@@ -1,6 +1,5 @@
 package com.api.UserRegister.controllers;
 
-import java.util.List;
 import java.util.Optional;
 
 import javax.mail.MessagingException;
@@ -57,11 +56,11 @@ public class UserController {
 	public Boolean recoverPassword(@RequestBody CodeRequest request) throws MessagingException {
 		return userServices.findByEmailAndGenerateRecuperationCode(request.getEmail());
 	}
-	
+
 	@CrossOrigin(origins = "*")
-	@PostMapping("/user/login/recuper/send")
-	public Boolean authRecuperation(@RequestBody ChangePasswordRequest request) {
-		return false;	
+	@PutMapping("/user/login/recuper/change")
+	public String authRecuperation(@RequestBody ChangePasswordRequest request) {
+		return userServices.changePassword(request);
 	}
 	
 }

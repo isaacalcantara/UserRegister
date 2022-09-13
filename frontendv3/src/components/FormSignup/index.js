@@ -1,11 +1,14 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { BASE_URL } from '../../utils/request';
 import './style.css';
 
 const acessToken = 'f8e668c7-bace-4081-92ee-e7841bbc1d0d';
 
 function FormSignup(){
+
+  let navigate = useNavigate() ;
 
     const[name, setName] = useState("");
     const[email, setEmail] = useState("");
@@ -38,12 +41,13 @@ function FormSignup(){
             }
           })
           .then(response =>{
-            alert("Cadastrado com sucesso!");
+            alert("cadastrado com sucesso, faça login!")
+            navigate("/")
           })
 
     }catch(error){
         if(!error?.response){
-            setError('No server response');
+            alert('Usuário já existe');
         } else if (error.response?.status === 400){
             setError('Missing name or password')
         } else if (error.response?.status === 401){
@@ -55,7 +59,7 @@ function FormSignup(){
   }
 
     return(
-
+  
         <div className="wrap-register">
             <form className="register-form" onSubmit={handleSubmit}>
               <span className="register-form-title">New User</span>
