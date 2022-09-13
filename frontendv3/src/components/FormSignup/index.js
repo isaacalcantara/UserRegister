@@ -55,6 +55,7 @@ function FormSignup(){
   }
 
     return(
+
         <div className="wrap-register">
             <form className="register-form" onSubmit={handleSubmit}>
               <span className="register-form-title">New User</span>

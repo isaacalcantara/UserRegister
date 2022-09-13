@@ -19,6 +19,7 @@ import com.api.UserRegister.entities.User;
 import com.api.UserRegister.payloads.requests.ChangePasswordRequest;
 import com.api.UserRegister.payloads.requests.CodeRequest;
 import com.api.UserRegister.payloads.requests.LoginRequest;
+import com.api.UserRegister.payloads.responses.ResponseLoginRequest;
 import com.api.UserRegister.services.UserServices;
 
 @RestController
@@ -27,13 +28,6 @@ public class UserController {
 
 	@Autowired
 	UserServices userServices;
-	
-	
-	@GetMapping("/user/all")
-	@CrossOrigin(origins = "*")
-	public List<User> findAll(){
-		return userServices.findAllUsers();
-	}
 	
 	@GetMapping("/user/{id}" )
 	public Optional<User> findById(@PathVariable(value="id") Integer id){
@@ -47,9 +41,15 @@ public class UserController {
 	}
 	
 	@CrossOrigin(origins = "*")
-	@PostMapping("/user/login")
-	public Boolean authLogin(@RequestBody LoginRequest user) {
+	@PutMapping("/user/login")
+	public ResponseLoginRequest authLogin(@RequestBody LoginRequest user) {
 		return userServices.authUser(user.getEmail(), user.getPassword());
+	}
+	
+	@CrossOrigin(origins = "*")
+	@PostMapping("/user/login/authtoken")
+	public String authLogin(@RequestBody CodeRequest request) {
+		return userServices.verifyToken(request.getEmail());
 	}
 	
 	@CrossOrigin(origins = "*")

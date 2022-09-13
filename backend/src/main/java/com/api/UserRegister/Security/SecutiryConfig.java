@@ -1,20 +1,27 @@
 package com.api.UserRegister.Security;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
 public class SecutiryConfig {
 	
-		@Bean
+		/*@Bean
 	    public WebSecurityCustomizer webSecurityCustomizer() {
-	        return (web) -> web.ignoring().antMatchers("POST", "http://localhost:5173").antMatchers("/api/user/save").anyRequest();
-	 	}
+	        return (web) -> web.ignoring().antMatchers("POST", "http://localhost:3000", "http://localhost:3000/fgtpassword").antMatchers("/api/user/save").anyRequest();
+	 	}*/
 	
-/*	@Bean
+	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.headers().frameOptions().disable();
 		http.cors().and().csrf().disable();
@@ -32,7 +39,7 @@ public class SecutiryConfig {
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
-	 */
+	 
 	 
 	
 }

@@ -16,6 +16,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	
 	User findByEmail(String email);
 	
+	/*@Modifying
+	@Query("UPDATE User\r\n"
+			+ "	SET token= :token\r\n"
+			+ "	WHERE id = :id")
+	void updateUserToken(String email, String token);
+	
 	@Modifying
 	@Query("UPDATE User\r\n"
 			+ "	SET rec_code= :code\r\n"
@@ -26,6 +32,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	@Query("UPDATE User\r\n"
 			+ "	SET rec_code=null, password= :newPassword\r\n"
 			+ "	WHERE id = :id")
-	void updateUser(String id, String newPassword);
+	void updateUser(Integer id, String newPassword);
+	*/
 	
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.UserRegister.entities.User;
+import com.api.UserRegister.payloads.responses.ResponseLoginRequest;
 import com.api.UserRegister.repositories.UserRepository;
 
 @Service
@@ -74,15 +75,54 @@ public class UserServices {
 		}
 	}
 	
-	public Boolean authUser(String email, String password) {
+	public ResponseLoginRequest authUser(String email, String password) {
 		//password = passwordEncoder().encode(password);
 		
 		User user = userRepository.findByEmailAndPassword(email, password).orElse(null);
+		
+		ResponseLoginRequest response = new ResponseLoginRequest();
+		
 		if(user != null) {
-			return true;
+			response.setExists(true);
+			response.setEmail(user.getEmail());
+			response.setId(user.getId());
+			
+			Random random = new Random();
+			String token = 
+					Integer.toString(random.nextInt(10))+
+					Integer.toString(random.nextInt(10))+
+					Integer.toString(random.nextInt(10))+
+					Integer.toString(random.nextInt(10))+
+					Integer.toString(random.nextInt(10))+
+					Integer.toString(random.nextInt(10))+
+					Integer.toString(random.nextInt(10))+
+					Integer.toString(random.nextInt(10))+
+					Integer.toString(random.nextInt(10))+
+					Integer.toString(random.nextInt(10))+
+					Integer.toString(random.nextInt(10))+
+					Integer.toString(random.nextInt(10))+
+					Integer.toString(random.nextInt(10))+
+					Integer.toString(random.nextInt(10))+
+					Integer.toString(random.nextInt(10))+
+					Integer.toString(random.nextInt(10));
+			
+			user.setToken(token);
+			
+			userRepository.save(user);
+			
+			response.setToken(token);
+			
+			return response;
+
 		}else {
-			return false;
+			response.setExists(false);
+			return response;
 		}
+	}
+	
+	public String verifyToken(String email) {
+		User user = userRepository.findByEmail(email);
+		return (user.getToken());
 	}
 	
 	/*public Boolean authUpdate(ChangePasswordRequest request) {

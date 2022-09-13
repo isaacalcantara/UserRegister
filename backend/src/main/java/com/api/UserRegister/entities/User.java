@@ -22,6 +22,7 @@ public class User implements Serializable {
 	private String password;
 	private String rec_code;
 	private String Phone;
+	private String token;
 
 	private String tipo;
 	private Boolean status;
@@ -30,19 +31,24 @@ public class User implements Serializable {
 
 	}
 
-	
 
-	public User(Integer id, String name, String email, String password, String rec_code, String phone, String tipo,
-			Boolean status) {
+
+	public User(Integer id, String name, String email, String password, String rec_code, String phone, String token,
+			String tipo, Boolean status) {
+		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.rec_code = rec_code;
 		Phone = phone;
+		this.token = token;
 		this.tipo = tipo;
 		this.status = status;
 	}
+
+
+
 
 
 
@@ -129,5 +135,15 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", email=" + email + ", tipo=" + tipo + ", status=" + status + "]";
 	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	
 
 }
