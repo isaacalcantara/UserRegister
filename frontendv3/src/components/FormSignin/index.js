@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {useEffect, useState, useRef, useContext} from 'react';
+import ReCAPTCHA from "react-google-recaptcha";
 import AuthContext from '../../context/AuthProvider';
 import {useNavigate} from 'react-router-dom';
 import { BASE_URL } from '../../utils/request';
@@ -10,12 +11,14 @@ function FormSignin(){
   const {setAuth} = useContext(AuthContext);   
 
   const errRef = useRef(3939);
+  const teste = true;
 
 
     const[email, setEmail] = useState("");
     const[password, setPassword] = useState("");
     const[error, setError] = useState("");
     const [sucess, setSucess] = useState(false);
+    const [captcha, setCaptcha] = useState(false);
 
     useEffect(() => {
         setError('');
@@ -23,11 +26,16 @@ function FormSignin(){
 
 
   const handleSubmit = async (e) => {
-
     if(!email | !password){
-        alert("Preencha todos os campos!");
-        return
+      alert("Preencha todos os campos!");
+      return
     }
+    if(captcha){
+    } else{
+      alert("Ops! Prove que você é humano!");
+      return
+    }
+    
 
     e.preventDefault();
     try{
@@ -46,11 +54,12 @@ function FormSignin(){
 
             localStorage.setItem("user_token", accessToken)
             localStorage.setItem("email", returnedEmail)
+            console.log(exists);
 
             if(exists == true){
               setSucess(true);
             } else if( exists == false){
-              setError("Nenhum usuário com este email foi encontrado!")
+              alert("Não encontrado. Email ou senha incorretos!")
             }
 
   
@@ -79,14 +88,25 @@ function FormSignin(){
      
   let navigate = useNavigate();
 
+  function onChange(value) {
+    console.log("Captcha value:", value);
+    if(value != null){
+      setCaptcha(true)
+    } else{
+      setCaptcha(false)
+    }
+  }
+
+
     return(
         <>  
         {sucess ? (
-          <section>
-           <h2> YOU ARE LOGED </h2> 
-           <a href='/home'> GO TO HOME</a>
-           </section>
-        ) : (
+          <div>
+          <span className="login-form-title">Logado com sucesso!</span>
+          <a href="/home" className='login-form-title'> GO TO HOME!</a>
+            
+          </div>
+         ) : (
         <div className="wrap-login">
             <form className="login-form" onSubmit={handleSubmit}>
               <span className="login-form-title">Bem Vindo!</span>
@@ -107,6 +127,13 @@ function FormSignin(){
                 />
                 <span className="focus-input" data-placeholder="Password"> </span>
               </div>
+              <div className="">
+              <ReCAPTCHA className='captcha'
+              size="normal"
+              sitekey="6LcCsgwiAAAAAIyVeg8vePjC_uPmMs2qkFusPKqU"
+              onChange={onChange}
+              />
+              </div>
               <div className="container-login-form-btn">
                 <button className="login-form-btn">Login</button>
               </div>
@@ -114,7 +141,7 @@ function FormSignin(){
                 <div>
                 <span className="txt1"> Don't have an account? </span>
                 <a className="txt2" href="/register">Create account.</a> <br />
-                <span className="txt1"> forget password? </span>
+                <span className="txt1"> Forget password? </span>
                 <a className="txt2" href="/fgtpassword">Remember now.</a>
                 
                 </div> 

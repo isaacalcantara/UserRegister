@@ -12,7 +12,6 @@ import { ToastContainer } from "react-toastify";
 
 const Private = ({Item}) => {
   const { signed } = useContext(AuthContext);
-  console.log(signed)
   return localStorage.getItem("user_token") == signed ? <Item /> : <FormSignin />;
 }
 

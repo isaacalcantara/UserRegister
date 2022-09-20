@@ -1,21 +1,26 @@
 import AuthContext from "../../context/AuthProvider";
 import { useContext } from "react";
+import './style.css'
+import {useHref, useNavigate} from 'react-router-dom';
 
 function Home(){
+
+    let navigate = useNavigate()
 
     const {setAuth} = useContext(AuthContext);   
 
     const handleSubmit = async (e) => {
-        setAuth("logout");
-        localStorage.setItem("user_token", null)
+        localStorage.setItem("user_token", '')
+        if(!localStorage.getItem("user_token")){
+            navigate("/")
+        }
     }
 
     return(
-        <div>
+        <div className="bienvenido">
         <h1>Logado!</h1>
-        <button>Sair ainda não está funcionando </button>
+        <button className="btn-sair" onClick={handleSubmit}>SAIR</button>
         </div>
-        
     )
 }
 
